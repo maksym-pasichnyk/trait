@@ -127,7 +127,7 @@ namespace stl {
 
 using f32 = float;
 
-// declare Shape trait
+// define Shape trait
 trait(Shape,
     (area, auto() const -> f32),
     (name, auto() const -> std::string)
@@ -159,9 +159,8 @@ struct Square {
 };
 
 void test_impl(stl::impl<Shape> auto const& shape) {
-    std::cout 
-        << __FUNCTION__ 
-        << ": "
+    std::cout
+        << "test_impl: "
         << shape.name() 
         << "'s radius is " 
         << shape.area()
@@ -169,16 +168,15 @@ void test_impl(stl::impl<Shape> auto const& shape) {
 }
 
 void test_dyn(stl::dyn<Shape> const& shape) {
-    std::cout 
-        << __FUNCTION__ 
-        << ": "
+    std::cout
+        << "test_dyn: "
         << shape.name() 
         << "'s radius is " 
         << shape.area()
         << std::endl;
 }
 
-int main() {
+auto main() -> int {
     // stl::impl is concept
     stl::impl<Shape> auto circle = Circle(2.0F);
     stl::impl<Shape> auto square = Square(10.0F, 20.0F);
@@ -200,4 +198,6 @@ int main() {
     // implicit cast to stl::dyn
     test_dyn(circle);
     test_dyn(square);
+
+    return 0;
 }
