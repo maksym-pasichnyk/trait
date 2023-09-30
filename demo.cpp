@@ -125,6 +125,7 @@ namespace stl {
     concept impl = trait<Trait>::template impl<Self>;
 }
 
+using i32 = int;
 using f32 = float;
 
 // define Shape trait
@@ -136,53 +137,33 @@ trait(Shape,
 struct Circle {
     f32 radius = {};
 
-    auto area() const -> f32 {
-        return 2.0F * f32(M_PI) * radius;
-    }
-
-    auto name() const -> std::string {
-        return "Circle";
-    }
+    auto area() const -> f32 { return f32(M_PI) * radius * radius; }
+    auto name() const -> std::string { return "Circle"; }
 };
 
 struct Square {
     f32 length = {};
     f32 height = {};
 
-    auto area() const -> f32 {
-        return length * height;
-    }
-
-    auto name() const -> std::string {
-        return "Square";
-    }
+    auto area() const -> f32 { return length * height; }
+    auto name() const -> std::string { return "Square"; }
 };
 
 void test_impl(stl::impl<Shape> auto const& shape) {
-    std::cout
-        << "test_impl: "
-        << shape.name() 
-        << "'s radius is " 
-        << shape.area()
-        << std::endl;
+    std::cout << "test_impl: " << shape.name() << "'s radius is " << shape.area() << std::endl;
 }
 
 void test_dyn(stl::dyn<Shape> const& shape) {
-    std::cout
-        << "test_dyn: "
-        << shape.name() 
-        << "'s radius is " 
-        << shape.area()
-        << std::endl;
+    std::cout << "test_dyn: " << shape.name() << "'s radius is " << shape.area() << std::endl;
 }
 
-auto main() -> int {
+auto main() -> i32 {
     // stl::impl is concept
     stl::impl<Shape> auto circle = Circle(2.0F);
     stl::impl<Shape> auto square = Square(10.0F, 20.0F);
 
     // stl::dyn uses type-erasure and stores reference to object
-    // When 'c' goes out of scope, 's' will point to dangling pointer
+    // When 'circle' goes out of scope, 'shape' will point to dangling pointer
     stl::dyn<Shape> shape = circle;
 
     // stl::dyn satisfies stl::impl concept, so why not?
