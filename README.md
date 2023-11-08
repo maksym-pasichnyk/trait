@@ -1,11 +1,15 @@
 # trait
 Rust-like traits implementation in C++
 
-Implementation that uses macros```demo.cpp``` [https://godbolt.org](https://godbolt.org/z/Psnrqc3Y3)
+Implementation that uses macros```demo.cpp``` [https://godbolt.org](https://t.co/fCHMRVkvJN)
+
+
 ```c++
-trait(Shape,
-    (area, auto() const -> f32),
-    (name, auto() const -> std::string)
+cpp2(
+    trait Shape as (
+        fn area as (() const -> f32),
+        fn name as (() const -> std::string)
+    )
 );
 
 struct Circle {
