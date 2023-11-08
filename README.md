@@ -1,7 +1,7 @@
 # trait
 Rust-like traits implementation in C++
 
-Implementation that uses macros```demo.cpp``` [https://godbolt.org](https://t.co/fCHMRVkvJN)
+Implementation that uses macros ```demo.cpp``` [https://godbolt.org](https://t.co/fCHMRVkvJN)
 
 
 ```c++
@@ -19,6 +19,29 @@ struct Circle {
     auto name() const -> std::string { return "Circle"; }
 };
 
+stl::impl<Shape> auto circle = Circle{.radius = 10};
+stl::dyn<Shape&> shape = &circle;
+```
+
+Implementation that uses deducing this and macros ```demo_deducing_this.cpp```
+```c++
+cpp2(
+    trait Shape as (
+        fn area as (() const -> f32),
+        fn name as (() const -> std::string)
+    )
+
+    type Circle as (
+        f32 radius = {};
+
+        auto area(__this &self) -> f32 {
+            return return f32(M_PI) * self.radius * self.radius;
+        }
+        auto name(__this &self) -> std::string {
+            return "Circle";
+        }
+    )
+);
 stl::impl<Shape> auto circle = Circle{.radius = 10};
 stl::dyn<Shape&> shape = &circle;
 ```
