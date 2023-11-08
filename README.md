@@ -19,8 +19,8 @@ struct Circle {
     auto name() const -> std::string { return "Circle"; }
 };
 
-auto circle = Circle{.radius = 10};
-stl::dyn<Shape> shape = circle;
+stl::impl<Shape> auto circle = Circle{.radius = 10};
+stl::dyn<Shape&> shape = circle;
 ```
 
 Implementation that uses p1240r1 ```demo_p1240r1.cpp``` [https://godbolt.org](https://godbolt.org/z/9Y3hxvnPa)
@@ -33,7 +33,7 @@ struct Shape {
 struct Circle {
     f32 radius = {};
 
-    auto area() const -> f32' { return f32(M_PI) * radius * radius; }
+    auto area() const -> f32 { return f32(M_PI) * radius * radius; }
     auto name() const -> std::string { return "Circle"; }
 };
 
