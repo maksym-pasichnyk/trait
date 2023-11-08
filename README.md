@@ -20,7 +20,7 @@ struct Circle {
 };
 
 stl::impl<Shape> auto circle = Circle{.radius = 10};
-stl::dyn<Shape&> shape = circle;
+stl::dyn<Shape&> shape = &circle;
 ```
 
 Implementation that uses p1240r1 ```demo_p1240r1.cpp``` [https://godbolt.org](https://godbolt.org/z/9Y3hxvnPa)
